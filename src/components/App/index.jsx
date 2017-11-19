@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Header from '../Header';
+import axios from 'axios';
 
+let serverUrl = 'http://localhost:8080/';
 /**
  * Top level Parent component.
  */
@@ -69,17 +71,21 @@ class App extends Component {
     })
 
     let newTodo = {
-      id: this.getNextId(this.state.todos),
+      //id: this.getNextId(this.state.todos),
       title: todo.title.value,
       description: todo.description.value,
       status: Number(todo.status.value),
       project: Number(todo.project.value),
       labels: labels
     }
+    axios.post(serverUrl+'todos', newTodo)
+    .then(function(response){
+      console.log('saved successfully')
+    });
     this.state.todos.push(newTodo)
     this.setState(this.state.todos)
     this.setCompleteTasksCounter();
-  }
+  }  
 
   /**
   * Adds new labels.
