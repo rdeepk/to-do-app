@@ -36,6 +36,7 @@ todoController.getTodos = [
 
 todoController.updateTodo = (req, res, next) => {
   Todo.findOneAndUpdate(req.query.id, req.body, {new: true}, function(err, doc){
+    console.log(err);
     if (err) return res.status(400).send(err);
     return res.send(doc);
   });

@@ -26,11 +26,11 @@ class TodoByProject extends Component {
     * Handler to submit form data after editing a todo.
     */
     handleFormSubmit(e) {
-        this.props.updateTask(this.form, this.props.todo.id)
+        this.props.updateTask(this.form, this.props.todo._id)
     }
 
     deleteTodo(id) {
-        this.props.deleteById(id, 'todos');
+        this.props.deleteById(id, 'Todo');
     }
    
     componentDidMount() {
@@ -39,11 +39,18 @@ class TodoByProject extends Component {
 
     render() {
         //Makes jsx for the edit mode of labels for todos
-        let editLabelsJSX = this.props.todo.labels.map((label, i) => {
-            return <div className="edit-labels">   
+        let editLabelsJSX = this.props.labels.map((labelObj, i) => {
+            let checked = false;
+            this.props.todo.labels.forEach((label, j) => {
+                if(labelObj._id === label) {
+                    checked = true;
+                }
+            });
+            return <div key={i} className="edit-labels">   
                         <label htmlFor="labels">
-                            <input type="checkbox" name="labels" id={label.id} checked={label.ischecked}/>
-                            {this.props.getTitleById('labels', Number(label.id)).title}
+                            {/* <input type="checkbox" name="labels" id={label.id} checked={label.ischecked}/> */}
+                            <input type="checkbox" name="labels" id={labelObj._id} checked={checked}/>
+                            {this.props.getTitleById('labels', labelObj._id).title}
                         </label>
                     </div>
         })
@@ -54,28 +61,23 @@ class TodoByProject extends Component {
         //sets status options for select dropdown for a todo
         let statusJSX = this.props.status.map((item, i) => {
             if(!existingTodoStatus) {
-                existingTodoStatus = (item.id === Number(this.props.todo.status)) ? item.id : '';
+                existingTodoStatus = (item._id === this.props.todo.status) ? item._id : '';
             }
-                return <option value={item.id}>{item.title}</option>
-        })
-        
-        //returns the array of checked labels for a todo
-        let validLabels = this.props.todo.labels.filter((label, i)  => {
-            return label.ischecked 
+                return <option value={item._id} key={i}>{item.title}</option>
         })
 
         //Makes jsx for the display mode of valid labels for todos
-        let labelsJSX = validLabels.map((label, i) => {
-            return <div className="todo-label">
+        let labelsJSX = this.props.todo.labels.map((label, i) => {
+            return <div key={i} className="todo-label">
                         <label htmlFor="labels">
-                            <input type="checkbox" name="labels" value={label.id} checked="checked" />
-                            {this.props.getTitleById('labels', Number(label.id)).title}
+                            <input type="checkbox" name="labels" value={label} checked="checked" />
+                            {this.props.getTitleById('labels', label).title}
                         </label>
                     </div>
         })
 
         //get status title from id of a status
-        let status = this.props.getTitleById('status', Number(this.props.todo.status)).title;
+        let status = this.props.getTitleById('status', this.props.todo.status).title;
 
         //make css name to add styles as per the current value of status
         let statusClass = status.toLowerCase().split(' ').join('-');
@@ -136,7 +138,7 @@ class TodoByProject extends Component {
                                 </div>
                                 <div className="form-group hidden">
                                     <label htmlFor="project">Project: <span className="required">*</span></label>
-                                    <select name="project" value ={this.props.project}></select>
+                                    <input type="text" name="project" value={this.props.todo.project} required="required" className="form-control" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="labels">Labels: {editLabelsJSX}</label>

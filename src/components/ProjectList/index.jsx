@@ -19,14 +19,14 @@ class ProjectList extends Component {
     render() {
         // returns the array of projects that have todos attached to them.
         let projects = this.props.projects.filter((project, i) => {
-            let todos = this.getTodosByProject(project.id);
+            let todos = this.getTodosByProject(project._id);
             return todos.length > 0 ? true : false;
         })
 
         // makes the todos JSX.
         let projectsJSX= projects.map((project, i) => {
-            let todos = this.getTodosByProject(project.id);
-            return <Project id={project.id}
+            let todos = this.getTodosByProject(project._id);
+            return <Project id={project._id}
                             title ={project.title}
                             todos={todos}
                             status={this.props.status}

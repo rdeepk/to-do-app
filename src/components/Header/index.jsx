@@ -132,7 +132,7 @@ class Header extends React.Component {
 
 
     render() {
-
+        
         // css for disable and enable clear complete button
         let clearBtnCss = {};
 

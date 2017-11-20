@@ -206,12 +206,14 @@ class App extends Component {
     .then((response) => {
       console.log('deleted successfully')
     });
-    let todos = this.state.todos.filter((todo, i)=>{
-      return id !== todo._id
-    })
-    this.setState({
-      todos: todos
-    })
+    if(name === 'Todo') {
+      let todos = this.state.todos.filter((todo, i)=>{
+        return id !== todo._id
+      })
+      this.setState({
+        todos: todos
+      })
+    }
   }
 
   /**
