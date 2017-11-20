@@ -17,6 +17,7 @@ class TodoFilter extends Component {
                                 getTitleById={this.props.getTitleById}
                                 removeTodos={this.props.removeTodos}
                                 status={this.props.status}
+                                labels={this.props.labels}
                                 updateTask={this.props.updateTask}
                                 deleteById={this.props.deleteById}
                                 competeTasksCounter={this.props.competeTasksCounter}

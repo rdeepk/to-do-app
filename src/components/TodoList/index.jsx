@@ -12,6 +12,7 @@ class TodoList extends Component {
                             todo={todo}
                             getTitleById={this.props.getTitleById}
                             status={this.props.status}
+                            labels={this.props.labels}
                             updateTask={this.props.updateTask}
                             competeTasksCounter={this.props.competeTasksCounter}
                             deleteById={this.props.deleteById}

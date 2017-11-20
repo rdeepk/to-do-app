@@ -171,19 +171,33 @@ class App extends Component {
   /**
   * Updates an existing todo.
   */
-  updateTask = (task, id) => {
+  updateTask = (todo, id) => {
+    let labels = [];
+    todo.labels.forEach((label, i) => {
+      if(label.checked) {
+        labels.push(label.id);
+      }
+    })
+
+    let newTodo = {
+      title: todo.title.value,
+      description: todo.description.value,
+      status: todo.status.value,
+      project: todo.project.value,
+      labels: labels
+    }
+
     this.state.todos.forEach((todo, i) => {
-      if(todo.id === id) {
-        this.state.todos[i].title = task.title.value;
-        this.state.todos[i].description = task.description.value;
-        this.state.todos[i].status = task.status.value;
-        //set labels
-        task.labels.forEach((label, j) => {
-          this.state.todos[i].labels[j].ischecked = task.labels[j].checked
-        })
+      if(todo._id === id) {
+        this.state.todos[i] = newTodo;;
         this.setState(this.state.todos);
       }
     })
+
+    axios.post(serverUrl+'updateTodo?id='+id, newTodo)
+    .then((response) => {
+      console.log('saved successfully')
+    });
     // this.setCompleteTasksCounter();
   }
 
@@ -244,7 +258,6 @@ class App extends Component {
 
   render() {
     //lets get fresh todo stats
-    // console.log(this.state.todos)
     if(this.state.loading) {
       return <h1>Loading..</h1>
     }
