@@ -30,7 +30,10 @@ class Todo extends Component {
     }
 
     deleteTodo(id) {
-        this.props.deleteById(id, 'Todo');
+        let ids = [];
+        ids.push(id);
+        this.props.removeTodos(ids);
+        // this.props.deleteById(id, 'Todo');
     }
 
     componentDidMount() {

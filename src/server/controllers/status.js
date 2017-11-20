@@ -5,7 +5,6 @@ var statusController = {};
 
 statusController.addStatus = [
   function(req,res,next) {
-      console.log(req.body);
     var status = new Status({
       title: req.body.title
     });
@@ -13,7 +12,6 @@ statusController.addStatus = [
     status.save().then((doc) => {
       res.send(doc);
     }, (e) => {
-        console.log(e)
       res.status(400).send(e);
     });
   }
@@ -24,7 +22,6 @@ statusController.getStatus = [
     Status.find().then((status) => {
       res.send({status})
     }, (e) => {
-      console.log(e);
       res.status(400).send(e);
     });
   }

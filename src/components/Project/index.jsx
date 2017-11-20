@@ -64,6 +64,7 @@ class Project extends Component {
                                     project={this.props.id}
                                     deleteById={this.props.deleteById}
                                     handleMenuClasses={this.props.handleMenuClasses}
+                                    removeTodos={this.props.removeTodos}
                                     />
             </div>
         )

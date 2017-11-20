@@ -11,7 +11,7 @@ class Header extends React.Component {
         super(props);
         this.state = {
             selectValue: "all",
-            filteredTodos: this.props.todos,
+            filteredTodos: props.todos,
             todosFilter: "default",
             todoListIsHidden: false,
             projectListIsHidden: true,
@@ -73,7 +73,6 @@ class Header extends React.Component {
     * Handler clear complete button on click event.
     */
     handleClearComplete = (projectId) => {
-        console.log("ghhghg", projectId)
         let completeTodos = [];
         this.props.todos.forEach((todo, i) => {
             if (this.props.getTitleById('status',todo.status).title === 'Complete') {
@@ -120,20 +119,7 @@ class Header extends React.Component {
         }
     }
 
-    // handleMenuClasses = (classesObj) => {
-    //     for(let key in classesObj) {
-    //         let stateKey = key + 'MenuClass';
-    //         this.state[stateKey] = classesObj[key];
-    //         console.log(classesObj);
-    //         console.log(this.state[stateKey]);
-    //         this.setState(this.state[stateKey]);
-    //     }
-    // }
-
-
-
     render() {
-
         // css for disable and enable clear complete button
         let clearBtnCss = {};
 
@@ -152,7 +138,6 @@ class Header extends React.Component {
                 display: this.state.displayClearForDefaultTodos
             }
         }
-        console.log("jjjjjjj  ",this.state.filteredTodos)
         
         //assign status options for filter.
         let selectJSX = this.props.status.map((state, i) => {

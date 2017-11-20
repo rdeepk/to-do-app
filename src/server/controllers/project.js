@@ -12,7 +12,6 @@ projectController.addProject = [
     project.save().then((doc) => {
       res.send(doc);
     }, (e) => {
-        console.log(e)
       res.status(400).send(e);
     });
   }

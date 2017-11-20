@@ -17,6 +17,7 @@ class TodoList extends Component {
                             competeTasksCounter={this.props.competeTasksCounter}
                             deleteById={this.props.deleteById}
                             handleMenuClasses={this.props.handleMenuClasses}
+                            removeTodos={this.props.removeTodos}
                             />
         })
         return (

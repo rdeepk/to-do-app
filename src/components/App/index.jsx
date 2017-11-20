@@ -91,7 +91,6 @@ class App extends Component {
         count++;
       }
     })
-    console.log("count:  ", count)
     this.setState({
       competeTasksCounter: count
     })
@@ -131,7 +130,7 @@ class App extends Component {
       title: label.title.value
     }
     axios.post(serverUrl+'label', newLabel)
-    .then(function(response){
+    .then((response) => {
       this.state.labels.push(response.data);
       this.setState(this.state.labels);
       console.log('saved successfully')
@@ -146,7 +145,7 @@ class App extends Component {
       title: project.title.value
     }
     axios.post(serverUrl+'project', newProject)
-    .then(function(response){
+    .then((response) => {
       this.state.projects.push(response.data);
       this.setState(this.state.projects);
       console.log('saved successfully')
@@ -197,6 +196,8 @@ class App extends Component {
       })
       this.setState({
         todos: todos
+      },() => {
+        this.setCompleteTasksCounter();
       })
     }
   }
@@ -254,7 +255,6 @@ class App extends Component {
     if(this.state.loading) {
       return <h1>Loading..</h1>
     }
-    console.log("todos:  ", this.state.todos)
     let stats = this.getTodoStats()
     return (
       <div>
