@@ -133,6 +133,9 @@ class Header extends React.Component {
 
 
     render() {
+        // console.log("projects:  ",this.props.projects)
+        // console.log("labels:  " ,this.props.labels);
+        // console.log("status:   " ,this.props.status)
         // css for disable and enable clear complete button
         let clearBtnCss = {};
 

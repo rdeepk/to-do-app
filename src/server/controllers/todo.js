@@ -7,6 +7,7 @@ var todoController = {};
 
 todoController.addTodo = [
   function(req,res,next) {
+    console.log(req.body);
     var todo = new Todo({
       title: req.body.title,
       description: req.body.description,
@@ -18,6 +19,7 @@ todoController.addTodo = [
     todo.save().then((doc) => {
       res.send(doc);
     }, (e) => {
+      console.log(e);
       res.status(400).send(e);
     });
   }

@@ -50,18 +50,18 @@ class AddTodo extends Component {
     render() {
         //sets the options for projects dropdown in add new todo form.
         let projectsJSX = this.props.projects.map((project, i) =>{
-                return <option value={project.id} key={i}>{project.title}</option>
+                return <option value={project._id} key={i}>{project.title}</option>
         })
 
         //sets the options for status dropdown in add new todo form.
         let statusJSX = this.props.status.map((item, i) =>{
-            return <option value={item.id} key={i}>{item.title}</option>
+            return <option value={item._id} key={i}>{item.title}</option>
         })
 
         // sets checkboxes JSX for all existing labels for add new todo form.
         let editLabelsJSX = this.props.labels.map((label, i) => {
             return   <label htmlFor="labels" key={i}>
-                        <input type="checkbox" name="labels" id={label.id}/>
+                        <input type="checkbox" name="labels" id={label._id}/>
                         {label.title}
                     </label>
         })

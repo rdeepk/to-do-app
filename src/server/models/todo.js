@@ -12,17 +12,19 @@ var Todo = mongoose.model('Todo', {
         trim: true
     },
     status: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Status",
         required: true
     },
     project: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Project",
         required: true
     },
-    labels: {
-        type: Array,
-        required: true
-    }
+    labels: [{ 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Label"
+    }]
 });
 
 module.exports = {
