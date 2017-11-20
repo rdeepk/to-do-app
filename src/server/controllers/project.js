@@ -28,4 +28,14 @@ projectController.getProject = [
   }
 ];
 
+projectController.getProjectById = (req,res,next) => {
+  if(req.query.id) {
+    Project.find({_id:req.query.id}).then((project) => {
+      res.send({project})
+    }, (e) => {
+      res.status(400).send(e);
+    });
+  } 
+}
+
 module.exports = projectController;

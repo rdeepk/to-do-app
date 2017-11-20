@@ -6,7 +6,6 @@ import Todo from '../Todo';
 */
 class TodoList extends Component {
     render() {
-        // console.log(this.props.todos);
 
         let todosJSX = this.props.todos.map((todo, index)=>{
             return <Todo    key={index}

@@ -39,16 +39,16 @@ class Todo extends Component {
     
     render() {
         //returns the array of checked labels for a todo
-        let validLabels = this.props.todo.labels.filter((label, i)  => {
-            return label.ischecked 
-        })
+        // let validLabels = this.props.todo.labels.filter((label, i)  => {
+        //     return label.ischecked 
+        // })
 
         //Makes jsx for the display mode of valid labels for todos
-        let labelsJSX = validLabels.map((label, i) => {
+        let labelsJSX = this.props.todo.labels.map((label, i) => {
             return <div key={i} className="todo-label">
                         <label htmlFor="labels">
                             <input type="checkbox" name="labels" value={label.id} checked="checked" />
-                            {this.props.getTitleById('labels', Number(label.id)).title}
+                            {this.props.getTitleById('labels', label).title}
                         </label>
                     </div>
         })
@@ -57,28 +57,29 @@ class Todo extends Component {
         let editLabelsJSX = this.props.todo.labels.map((label, i) => {
             return <div key={i} className="edit-labels">   
                         <label htmlFor="labels">
-                            <input type="checkbox" name="labels" id={label.id} checked={label.ischecked}/>
-                            {this.props.getTitleById('labels', Number(label.id)).title}
+                            {/* <input type="checkbox" name="labels" id={label.id} checked={label.ischecked}/> */}
+                            <input type="checkbox" name="labels" id={label}/>
+                            {this.props.getTitleById('labels', label).title}
                         </label>
                     </div>
         })
         
         //to store the selected value of status for a todo.
         let existingTodoStatus;
-
         //sets status options for select dropdown for a todo
         let statusJSX = this.props.status.map((item, i) => {
             if(!existingTodoStatus) {
-                existingTodoStatus = (item.id === Number(this.props.todo.status)) ? item.id : '';
+                existingTodoStatus = (item._id === this.props.todo.status) ? item._id : '';
             }
-                return <option value={item.id} key={i}>{item.title}</option>
+                return <option value={item._id} key={i}>{item.title}</option>
         })
 
         //get status title from id of a status
-        let status = this.props.getTitleById('status', Number(this.props.todo.status)).title;
+        let status = this.props.getTitleById('status', this.props.todo.status).title;
 
         //make css name to add styles as per the current value of status
-        let statusClass = status.toLowerCase().split(' ').join('-');
+
+        let statusClass = status ? status.toLowerCase().split(' ').join('-'): '';
 
         //get the right icon to be displayed on a todo depending upon status.
         let getIcon = () => {
@@ -107,7 +108,7 @@ class Todo extends Component {
                         <div><button className="delete-link" onClick={() => {this.deleteTodo(this.props.todo.id)}}><i className="fa fa-trash-o" aria-hidden="true" title="Delete"></i></button></div>
                     </div>
                     <div className="col-xs-9 col-md-10 display">
-                        <div className="Project"><strong>Project:</strong> {this.props.getTitleById('projects', Number(this.props.todo.project)).title}</div>
+                        <div className="Project"><strong>Project:</strong> {this.props.getTitleById('projects', this.props.todo.project).title}</div>
                             <div className="title"><strong>Task:</strong> {this.props.todo.title}</div>
                             <div className="description"><strong>Description:</strong> {this.props.todo.description}</div>
                             <div className="labels"><strong>Labels:</strong> {labelsJSX}</div>

@@ -21,11 +21,14 @@ app.get('/todos', todo.getTodos);
 
 app.post('/status', status.addStatus);
 app.get('/status', status.getStatus);
+app.get('/statusById', status.getStatusById);
 
 app.post('/project', project.addProject);
 app.get('/project', project.getProject);
+app.get('/projectById', project.getProjectById);
 
 app.post('/label', label.addLabel);
 app.get('/label', label.getLabel);
+app.get('/labelById', label.getLabelById);
 
 app.listen(8080);

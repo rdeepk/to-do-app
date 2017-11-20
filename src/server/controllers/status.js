@@ -30,4 +30,14 @@ statusController.getStatus = [
   }
 ];
 
+statusController.getStatusById = (req,res,next) => {
+  if(req.query.id) {
+    Status.find({_id:req.query.id}).then((status) => {
+      res.send({status})
+    }, (e) => {
+      res.status(400).send(e);
+    });
+  } 
+}
+
 module.exports = statusController;

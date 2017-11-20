@@ -24,6 +24,7 @@ class App extends Component {
   //   }
 
     this.state = {
+      loading:false,
       todos: [],
       projects: [],
       status: [],
@@ -35,11 +36,8 @@ class App extends Component {
   getTodos = () => {
     let promise = axios.get(serverUrl+'todos')
     promise.then((response) => {
-      // console.log(response);
       this.setState({
         todos: response.data.todos
-      },() => {
-        // console.log(this.state.todos)
       })
     })
     promise.catch(function (error) {
@@ -47,15 +45,16 @@ class App extends Component {
     });
   }
 
+  
   getProjects = () => {
-    let promise = axios.get(serverUrl+'project')
-    promise.then((response) => {
-      // console.log(response);
+    axios.get(serverUrl+'project')
+      .then((response) => {
       this.setState({
-        projects: response.data.project
+        projects: response.data.project,
+        loading:false
       })
     })
-    promise.catch(function (error) {
+      .catch((error) => {
       console.log(error);
     });
   }
@@ -63,7 +62,6 @@ class App extends Component {
   getStatus = () => {
     let promise = axios.get(serverUrl+'status')
     promise.then((response) => {
-      // console.log(response);
       this.setState({
         status: response.data.status
       })
@@ -76,7 +74,6 @@ class App extends Component {
   getLabels = () => {
     let promise = axios.get(serverUrl+'label')
     promise.then((response) => {
-      // console.log(response);
       this.setState({
         labels: response.data.label
       })
@@ -86,7 +83,8 @@ class App extends Component {
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.setState({loading: true})
     this.getTodos();
     this.getStatus();
     this.getLabels();
@@ -132,14 +130,12 @@ class App extends Component {
       project: todo.project.value,
       labels: labels
     }
-    let obj;
     axios.post(serverUrl+'todos', newTodo)
-    .then(function(response){
-      obj = response.data;
+    .then((response) => {
+      this.state.todos.push(response.data);
+      this.setState(this.state.todos);
       console.log('saved successfully')
     });
-      this.state.todos.push(obj);
-      this.setState(this.state.todos);
   }  
 
   /**
@@ -203,8 +199,8 @@ class App extends Component {
   * Takes id and name of the object and returns corresponding title.
   */
   getTitleById = (name, id) => {
-    return this.props[name].find((key, index) => {
-        return key.id === id;
+    return this.state[name].find((key, index) => {
+        return key._id === id;
     });
   }
 
@@ -249,6 +245,9 @@ class App extends Component {
   render() {
     //lets get fresh todo stats
     // console.log(this.state.todos)
+    if(this.state.loading) {
+      return <h1>Loading..</h1>
+    }
     let stats = this.getTodoStats()
     return (
       <div>

@@ -101,7 +101,6 @@ class Header extends React.Component {
                 })
             break;
             case "projects":
-            console.log("in projects");
                 this.setState({
                     todosMenuClass :"",
                     addNewMenuClass: "",
@@ -133,9 +132,7 @@ class Header extends React.Component {
 
 
     render() {
-        // console.log("projects:  ",this.props.projects)
-        // console.log("labels:  " ,this.props.labels);
-        // console.log("status:   " ,this.props.status)
+
         // css for disable and enable clear complete button
         let clearBtnCss = {};
 
@@ -181,7 +178,7 @@ class Header extends React.Component {
                             <option value="default">Default</option>
                             <option value="filterByProject">Filter by project</option>
                         </select></li>
-                        <li><select className="todos-by-status" value={this.state.selectValue} onChange={this.handleFilterBhandleFilterByStatusyStatus}>
+                        <li><select className="todos-by-status" value={this.state.selectValue} onChange={this.handleFilterByStatus}>
                             <option value="all">All</option>
                             {selectJSX}
                         </select></li>
@@ -202,7 +199,7 @@ class Header extends React.Component {
                                                                         removeTodos={this.props.removeTodos}
                                                                         status={this.props.status}
                                                                         updateTask={this.props.updateTask}
-                                                                        todos={this.state.filteredTodos}
+                                                                        todos={this.props.todos}
                                                                         projects={this.props.projects}
                                                                         labels={this.props.labels}
                                                                         competeTasksCounter={this.props.competeTasksCounter}

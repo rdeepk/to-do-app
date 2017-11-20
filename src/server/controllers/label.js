@@ -20,12 +20,22 @@ labelController.addLabel = [
 
 labelController.getLabel = [
   function(req,res,next) {
-    Label.find().then((label) => {
+      Label.find().then((label) => {
+        res.send({label})
+      }, (e) => {
+        res.status(400).send(e);
+      });
+  }
+];
+
+labelController.getLabelById = (req,res,next) => {
+  if(req.query.id) {
+    Label.find({_id:req.query.id}).then((label) => {
       res.send({label})
     }, (e) => {
       res.status(400).send(e);
     });
-  }
-];
+  } 
+}
 
 module.exports = labelController;

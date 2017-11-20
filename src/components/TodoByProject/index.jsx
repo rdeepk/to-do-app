@@ -26,7 +26,6 @@ class TodoByProject extends Component {
     * Handler to submit form data after editing a todo.
     */
     handleFormSubmit(e) {
-        console.log("todobyproject");
         this.props.updateTask(this.form, this.props.todo.id)
     }
 
