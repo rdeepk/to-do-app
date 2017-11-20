@@ -124,6 +124,7 @@ class App extends Component {
     .then((response) => {
       this.state.todos.push(response.data);
       this.setState(this.state.todos);
+      this.setFilteredTodos(this.state.todos);
       console.log('saved successfully')
     });
   }  
@@ -176,18 +177,19 @@ class App extends Component {
       project: todo.project.value,
       labels: labels
     }
+    axios.post(serverUrl+'updateTodo?id='+id, newTodo)
+    .then((response) => {
+      console.log('saved successfully')
+    });
 
     this.state.todos.forEach((todo, i) => {
       if(todo._id === id) {
         this.state.todos[i] = newTodo;;
         this.setState(this.state.todos);
+        this.setFilteredTodos(this.state.todos);
       }
     })
 
-    axios.post(serverUrl+'updateTodo?id='+id, newTodo)
-    .then((response) => {
-      console.log('saved successfully')
-    });
     this.setCompleteTasksCounter();
   }
 
@@ -262,6 +264,7 @@ class App extends Component {
     if(this.state.loading) {
       return <h1>Loading..</h1>
     }
+    console.log("App:  ", this.state.todos)
     let stats = this.getTodoStats()
     return (
       <div>
