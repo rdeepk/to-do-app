@@ -36,7 +36,6 @@ todoController.getTodos = [
 
 todoController.updateTodo = (req, res, next) => {
   Todo.findOneAndUpdate(req.query.id, req.body, {new: true}, function(err, doc){
-    console.log(err);
     if (err) return res.status(400).send(err);
     return res.send(doc);
   });
@@ -45,7 +44,6 @@ todoController.updateTodo = (req, res, next) => {
 todoController.deleteTodo = [
   function(req,res,next) {
   var id = req.query.id;
-console.log(id);
   Todo.findOneAndRemove({
     _id: id
   }).then((todo) => {
@@ -54,7 +52,6 @@ console.log(id);
     }
     res.send({todo});
   }).catch((e) => {
-    console.log(e)
     res.status(400).send();
   });
   }

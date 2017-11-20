@@ -10,26 +10,13 @@ class App extends Component {
   constructor() {
     super()
 
-    /**
-    * Sets the default state for competeTasksCounter.
-    */
-  //   this.getCompleteTasksCount = () => {
-  //     let count = 0;
-  //     props.todos.forEach((todo, i) => {
-  //       if(Number(todo.status) === 101) {
-  //         count++;
-  //       }
-  //     })
-  //     return count;
-  //   }
-
     this.state = {
       loading:false,
       todos: [],
       projects: [],
       status: [],
-      labels: []
-      // competeTasksCounter: this.getCompleteTasksCount()
+      labels: [],
+      compteTasksCounter: 0
     }
    }
 
@@ -37,7 +24,10 @@ class App extends Component {
     let promise = axios.get(serverUrl+'todos')
     promise.then((response) => {
       this.setState({
-        todos: response.data.todos
+        todos: response.data.todos,
+        loading:false
+      },()=>{
+        this.setCompleteTasksCounter();
       })
     })
     promise.catch(function (error) {
@@ -50,8 +40,7 @@ class App extends Component {
     axios.get(serverUrl+'project')
       .then((response) => {
       this.setState({
-        projects: response.data.project,
-        loading:false
+        projects: response.data.project
       })
     })
       .catch((error) => {
@@ -85,32 +74,28 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({loading: true})
-    this.getTodos();
     this.getStatus();
     this.getLabels();
     this.getProjects();
+    this.getTodos();
   }
-
-  /**
-    * Takes array as param and use id key return an incremented value.
-    */
-  // getNextId = (arrName => arrName[arrName.length-1].id+1);
 
 
   /**
   * Recalculates the count of completed todos.
   */
-  // setCompleteTasksCounter = () => {
-  //   let count = 0;
-  //   this.state.todos.forEach((todo, i) => {
-  //     if(Number(todo.status) === 101) {
-  //       count++;
-  //     }
-  //   })
-  //   this.setState({
-  //     competeTasksCounter: count
-  //   })
-  // }
+  setCompleteTasksCounter = () => {
+    let count = 0;
+    this.state.todos.forEach((todo, i) => {
+      if(this.getTitleById('status',todo.status).title === 'Complete') {
+        count++;
+      }
+    })
+    console.log("count:  ", count)
+    this.setState({
+      competeTasksCounter: count
+    })
+  }
 
   /**
   * Adds new todo.
@@ -198,7 +183,7 @@ class App extends Component {
     .then((response) => {
       console.log('saved successfully')
     });
-    // this.setCompleteTasksCounter();
+    this.setCompleteTasksCounter();
   }
 
   deleteById = (id, name) => {
@@ -231,13 +216,14 @@ class App extends Component {
   removeTodos = (todoIdArray) => {
     todoIdArray.forEach((id, i) => {
       this.state.todos.forEach((todo, index) => {
-        if(id === todo.id) {
+        if(id === todo._id) {
+          this.deleteById(id, 'Todo');
           this.state.todos.splice(index, 1);
         }
       })
     })
     this.setState(this.state.todos);
-    // this.setCompleteTasksCounter();
+    this.setCompleteTasksCounter();
   }
 
   /**
@@ -249,17 +235,17 @@ class App extends Component {
       active:0,
       complete:0
     };
-    // this.state.todos.forEach((todo, i) => {
-    //   stats.total++;
-    //   switch(Number(todo.status)) {
-    //     case 100:
-    //       stats.active++;
-    //       break;
-    //     case 101:
-    //       stats.complete++;
-    //       break;
-    //   }
-    // })
+    this.state.todos.forEach((todo, i) => {
+      stats.total++;
+      switch(this.getTitleById('status',todo.status).title) {
+        case "Active":
+          stats.active++;
+          break;
+        case "Complete":
+          stats.complete++;
+          break;
+      }
+    })
     return stats;
   }
 
@@ -268,6 +254,7 @@ class App extends Component {
     if(this.state.loading) {
       return <h1>Loading..</h1>
     }
+    console.log("todos:  ", this.state.todos)
     let stats = this.getTodoStats()
     return (
       <div>

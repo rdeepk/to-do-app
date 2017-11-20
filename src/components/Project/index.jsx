@@ -13,8 +13,8 @@ class Project extends Component {
     clearComplete = (projectId) => {
         let completeTodos = [];
         this.props.todos.forEach((todo, i) => {
-            if(Number(todo.status) === 101) {
-                completeTodos.push(todo.id);
+            if(this.props.getTitleById('status',todo.status).title === 'Complete') {
+                completeTodos.push(todo._id);
             }
         })
         this.props.removeTodos(completeTodos);
@@ -24,7 +24,7 @@ class Project extends Component {
         //calculates the count of todos with complete status.
         let completeTasksCount = 0;
         this.props.todos.forEach((todo, i) => {
-          if(Number(todo.status) === 101) {
+          if(this.props.getTitleById('status',todo.status).title === 'Complete') {
             completeTasksCount++;
           }
         })

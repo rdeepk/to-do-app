@@ -8,6 +8,7 @@ import ProjectList from '../ProjectList';
 class TodoFilter extends Component {
 
     render() {
+        console.log("gggggggggg: ", this.props.todos)
         return (
                 <div className="row">
                     <div className="col-sm-12">
