@@ -37,9 +37,13 @@ git clone git@github.com:rdeepk/react-to-do-list-app.git
 3. Move into the main folder and install dependencies:
 npm i
 
-Move into the server folder and run nodemon:
+4. Move into the server folder and run nodemon:
 - cd src/server
 - nodemon server.js
+
+5. To run client, go to root folder and run
+- npm start
+
 And thats it!! Hopefully it will run on port 3000.
 
 Built With
@@ -59,3 +63,6 @@ Back-end
 - [Nodemon](https://nodemon.io/) - Auto-refresh the server on code change
 
 - [Mongoose](http://mongoosejs.com/) - Mongodb object modeling for Node.js
+
+
+To run it successfully , first add new projects and labels, so that they are accessible when adding new tasks.
