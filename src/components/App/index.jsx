@@ -16,7 +16,8 @@ class App extends Component {
       projects: [],
       status: [],
       labels: [],
-      compteTasksCounter: 0
+      compteTasksCounter: 0,
+      filteredTodos: []
     }
    }
 
@@ -25,6 +26,7 @@ class App extends Component {
     promise.then((response) => {
       this.setState({
         todos: response.data.todos,
+        filteredTodos: response.data.todos,
         loading:false
       },()=>{
         this.setCompleteTasksCounter();
@@ -33,6 +35,10 @@ class App extends Component {
     promise.catch(function (error) {
       console.log(error);
     });
+  }
+
+  setFilteredTodos = (todos) => {
+    this.setState({filteredTodos: todos})
   }
 
   
@@ -220,10 +226,11 @@ class App extends Component {
         if(id === todo._id) {
           this.deleteById(id, 'Todo');
           this.state.todos.splice(index, 1);
+          this.setState(this.state.todos);
+          this.setFilteredTodos(this.state.todos);
         }
       })
     })
-    this.setState(this.state.todos);
     this.setCompleteTasksCounter();
   }
 
@@ -280,6 +287,8 @@ class App extends Component {
                 addNewLabel={this.addNewLabel}
                 addNewProject={this.addNewProject}
                 deleteById={this.deleteById}
+                setFilteredTodos={this.setFilteredTodos}
+                filteredTodos={this.state.filteredTodos}
                 /> 
       </div>
     );

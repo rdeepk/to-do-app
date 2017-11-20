@@ -11,7 +11,6 @@ class Header extends React.Component {
         super(props);
         this.state = {
             selectValue: "all",
-            filteredTodos: props.todos,
             todosFilter: "default",
             todoListIsHidden: false,
             projectListIsHidden: true,
@@ -55,9 +54,10 @@ class Header extends React.Component {
                 return (todo.status === this.state.selectValue)? true:false
             })
         }
-        this.setState({
-            filteredTodos: filteredTodos
-        })
+        this.props.setFilteredTodos(filteredTodos)
+        // this.setState({
+        //     filteredTodos: filteredTodos
+        // })
     }
 
     /**
@@ -185,7 +185,7 @@ class Header extends React.Component {
                                                                         removeTodos={this.props.removeTodos}
                                                                         status={this.props.status}
                                                                         updateTask={this.props.updateTask}
-                                                                        todos={this.state.filteredTodos}
+                                                                        todos={this.props.filteredTodos}
                                                                         projects={this.props.projects}
                                                                         labels={this.props.labels}
                                                                         competeTasksCounter={this.props.competeTasksCounter}
