@@ -202,11 +202,16 @@ class App extends Component {
   }
 
   deleteById = (id, name) => {
-    if(name === 'todos') {
-      let ids = [];
-      ids.push(id);
-      this.removeTodos(ids);
-    }
+    axios.post(serverUrl+'delete'+name+'ById?id='+id)
+    .then((response) => {
+      console.log('deleted successfully')
+    });
+    let todos = this.state.todos.filter((todo, i)=>{
+      return id !== todo._id
+    })
+    this.setState({
+      todos: todos
+    })
   }
 
   /**

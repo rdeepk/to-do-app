@@ -30,7 +30,7 @@ class Todo extends Component {
     }
 
     deleteTodo(id) {
-        this.props.deleteById(id, 'todos');
+        this.props.deleteById(id, 'Todo');
     }
 
     componentDidMount() {
@@ -108,7 +108,7 @@ class Todo extends Component {
                     <div className="col-xs-3 col-md-2 check">
                         <div>{getIcon()}</div>
                         <div><button className="edit-link" onClick={this.toggleDisplay}><i className="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i></button></div>
-                        <div><button className="delete-link" onClick={() => {this.deleteTodo(this.props.todo.id)}}><i className="fa fa-trash-o" aria-hidden="true" title="Delete"></i></button></div>
+                        <div><button className="delete-link" onClick={() => {this.deleteTodo(this.props.todo._id)}}><i className="fa fa-trash-o" aria-hidden="true" title="Delete"></i></button></div>
                     </div>
                     <div className="col-xs-9 col-md-10 display">
                         <div className="Project"><strong>Project:</strong> {this.props.getTitleById('projects', this.props.todo.project).title}</div>

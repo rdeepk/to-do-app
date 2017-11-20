@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.post('/todos', todo.addTodo);
 app.get('/todos', todo.getTodos);
 app.post('/updateTodo', todo.updateTodo);
+app.post('/deleteTodoById', todo.deleteTodo);
 
 app.post('/status', status.addStatus);
 app.get('/status', status.getStatus);
