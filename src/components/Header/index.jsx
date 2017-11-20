@@ -52,7 +52,7 @@ class Header extends React.Component {
             filteredTodos = this.props.todos;
         } else {
             filteredTodos = this.props.todos.filter((todo, item) => {
-                return (Number(todo.status) === Number(this.state.selectValue))? true:false
+                return (todo.status === this.state.selectValue)? true:false
             })
         }
         this.setState({
@@ -155,7 +155,7 @@ class Header extends React.Component {
 
         //assign status options for filter.
         let selectJSX = this.props.status.map((state, i) => {
-            return <option value={state.id} key={i}>{state.title}</option>
+            return <option value={state._id} key={i}>{state.title}</option>
         })
         return (
             <div>
@@ -199,7 +199,7 @@ class Header extends React.Component {
                                                                         removeTodos={this.props.removeTodos}
                                                                         status={this.props.status}
                                                                         updateTask={this.props.updateTask}
-                                                                        todos={this.props.todos}
+                                                                        todos={this.state.filteredTodos}
                                                                         projects={this.props.projects}
                                                                         labels={this.props.labels}
                                                                         competeTasksCounter={this.props.competeTasksCounter}
