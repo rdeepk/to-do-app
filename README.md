@@ -24,7 +24,7 @@ Basic functionality is:
 - Display and add labels.
 
 
-##Installing
+## Installing
 
 A step by step series of examples that tell you have to get a development env running:
 
