@@ -1,6 +1,7 @@
 
 var {mongoose} = require('./../db/mongoose');
 var {Todo} = require('./../models/todo');
+const logger = require('./../winston')
 
 var todoController = {};
 
@@ -17,6 +18,7 @@ todoController.addTodo = [
     todo.save().then((doc) => {
       res.send(doc);
     }, (e) => {
+      logger.ERROR('addTodo', e)
       res.status(400).send(e);
     });
   }
@@ -27,6 +29,7 @@ todoController.getTodos = [
     Todo.find().then((todos) => {
       res.send({todos})
     }, (e) => {
+      logger.ERROR('getTodos', e)
       res.status(400).send(e);
     });
   }
@@ -35,6 +38,7 @@ todoController.getTodos = [
 todoController.updateTodo = (req, res, next) => {
   Todo.findOneAndUpdate(req.query.id, req.body, {new: true}, function(err, doc){
     if (err) return res.status(400).send(err);
+    logger.ERROR('updateTodo', e)
     return res.send(doc);
   });
 }
@@ -46,10 +50,12 @@ todoController.deleteTodo = [
     _id: id
   }).then((todo) => {
     if (!todo) {
+      logger.ERROR('deleteTodo', e)
       return res.status(404).send();
     }
     res.send({todo});
   }).catch((e) => {
+    logger.ERROR('deleteTodo', e)
     res.status(400).send(e);
   });
   }

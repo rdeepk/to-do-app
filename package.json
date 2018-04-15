@@ -11,7 +11,9 @@
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-saga": "^0.16.0",
+    "winston": "^2.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
